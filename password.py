@@ -1,0 +1,2 @@
+username = djangoadmin
+password = password
