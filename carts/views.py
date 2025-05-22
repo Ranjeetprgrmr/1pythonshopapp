@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from carts.models import Cart, CartItem
 from store.models import Product
 
+
 # Create your views here.
 
 def _cart_id(request):
