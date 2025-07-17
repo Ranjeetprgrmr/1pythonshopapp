@@ -1,0 +1,41 @@
+body {
+  background-color: #db1e1e;
+}
+
+
+
+
+/* hide radio button */  
+  .rate > input{
+    display: none;
+  }
+
+  .rate {
+    display: inline-block;
+    border: 0;
+  }
+  
+  .rate > label{
+    float: right;
+  }
+  
+  /* show stars */
+  .rate > label:before{
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: .3rem .2rem;
+    margin-bottom: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005";
+   
+  }
+
+/* Half star */
+.rate .half:before{
+  content: "\f089";
+  position: absolute;
+  padding-right: 0;
+
+}
+
