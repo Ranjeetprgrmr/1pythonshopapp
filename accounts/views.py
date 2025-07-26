@@ -65,7 +65,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         
-        user = auth.authenticate(email=email, password=password)
+        user = auth.authenticate(request, email=email, password=password)
         
         if user is not None:
             try:

@@ -16,6 +16,9 @@ from decouple import config
 from django.core.cache import cache
 # from django.http import HttpResponseForbidden
 
+import os
+
+print(os.getcwd())
 # def block_brute_force(get_response):
 #     def middleware(request):
 #         if request.path == '/admin/login/':
@@ -178,6 +181,7 @@ MEDIA_ROOT = BASE_DIR /'media'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
+AXES_ENABLED = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AXES_FAILURE_LIMIT = 5
 AXES_COOLOFF_TIME = 1

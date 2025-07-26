@@ -7,10 +7,12 @@ from carts.models import CartItem
 from carts.views import _cart_id
 from category.models import Category
 from orders.models import OrderProduct
+from python1shopapp.settings import BASE_DIR
 from store.forms import ReviewForm
 from store.models import Product, ProductGallery, ReviewRating
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
+
 
 # Create your views here.
 def store(request, category_slug=None):
