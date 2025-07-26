@@ -12,6 +12,22 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import smtplib
+from decouple import config
+from django.core.cache import cache
+# from django.http import HttpResponseForbidden
+
+# def block_brute_force(get_response):
+#     def middleware(request):
+#         if request.path == '/admin/login/':
+#             ip = request.META.get('REMOTE_ADDR')
+#             key = f"admin_block_{ip}"
+#             attempts = cache.get(key, 0)
+#             if attempts > 5:
+#                 return HttpResponseForbidden("Too many attempts")
+#             cache.set(key, attempts + 1, timeout=300)
+#         return get_response(request)
+#     return middleware
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +37,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
+
+
+# Defender Configuration (SQLite only)
+DEFENDER_USE_REDIS = False  # Disable Redis completely
+DEFENDER_REDIS_URL = ""  # Empty string, not None
+DEFENDER_STORE_ACCESS_ATTEMPTS = True  # Use SQLite
+DEFENDER_LOCKOUT_TEMPLATE = None  # Default template
+DEFENDER_COOLOFF_TIME = 300  # 5 minutes lockout
 
 
 # Application definition
@@ -43,7 +67,10 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
+    'axes',
+     
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,7 +80,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'python1shopapp.settings.block_brute_force',  # Custom middleware to block brute force attacks',
+    'axes.middleware.AxesMiddleware', 
+     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 ROOT_URLCONF = 'python1shopapp.urls'
 
@@ -142,6 +179,8 @@ MEDIA_ROOT = BASE_DIR /'media'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AXES_FAILURE_LIMIT = 5
+AXES_COOLOFF_TIME = 1
 
 
 from django.contrib.messages import constants as messages
@@ -151,11 +190,11 @@ MESSAGE_TAGS = {
 
 
 # SMTP Configuration
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = '9nadsg@gmail.com'
-EMAIL_HOST_PASSWORD = 'wbcmkylqolpdahuy'
-EMAIL_USE_TLS = True
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT' , cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 # print(EMAIL_HOST, 'email host')
 # print(EMAIL_PORT, 'email port')
 # print(EMAIL_HOST_USER, 'email host user')
