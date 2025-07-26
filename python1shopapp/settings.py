@@ -100,7 +100,7 @@ ROOT_URLCONF = 'python1shopapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'python1shopapp', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, '1pythonshopapp', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
