@@ -83,9 +83,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'python1shopapp.settings.block_brute_force',  # Custom middleware to block brute force attacks',
     'axes.middleware.AxesMiddleware', 
      'django.contrib.auth.middleware.AuthenticationMiddleware',
+     'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
 
