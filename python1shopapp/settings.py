@@ -14,23 +14,8 @@ from pathlib import Path
 import smtplib
 from decouple import config
 from django.core.cache import cache
-# from django.http import HttpResponseForbidden
 
 import os
-
-print(os.getcwd())
-# def block_brute_force(get_response):
-#     def middleware(request):
-#         if request.path == '/admin/login/':
-#             ip = request.META.get('REMOTE_ADDR')
-#             key = f"admin_block_{ip}"
-#             attempts = cache.get(key, 0)
-#             if attempts > 5:
-#                 return HttpResponseForbidden("Too many attempts")
-#             cache.set(key, attempts + 1, timeout=300)
-#         return get_response(request)
-#     return middleware
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 'django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool)
+DEBUG = True
 
-ALLOWED_HOSTS = ['.railway.app', '127.0.0.1', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['.onrender.app','127.0.0.1']
 
 
 # Defender Configuration (SQLite only)
@@ -71,7 +56,6 @@ INSTALLED_APPS = [
     'carts',
     'orders',
     'axes',
-     
 ]
 
 

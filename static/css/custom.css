@@ -57,7 +57,7 @@ label:hover ~ input:checked ~ label{
 /* product detail page*/
 ul.thumb {
   margin: 0 auto;
-  padding: 0;
+  padding: 5px;
   float: left;
 }
 ul.thumb.li{
