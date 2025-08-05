@@ -94,16 +94,29 @@ WSGI_APPLICATION = 'python1shopapp.wsgi.application'
 AUTH_USER_MODEL = 'accounts.Account'
 
 # Database Configuration
+# Default to SQLite for local development
+DEFAULT_DATABASE_URL = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
+
+# Get database URL from environment or use default
+database_url = os.getenv('DATABASE_URL', DEFAULT_DATABASE_URL)
+
+# Validate database URL before parsing
+if not database_url:
+    database_url = DEFAULT_DATABASE_URL
+
 DATABASES = {
     'default': dj_database_url.parse(
-        os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'),
+        database_url,
         conn_max_age=600,
+        engine='django.db.backends.postgresql' if 'postgres' in database_url else None
     )
 }
 
-# For Render's SSL requirement
+# SSL for Render production
 if os.getenv('RENDER'):
     DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
+    
+    
     
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
