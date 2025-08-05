@@ -113,7 +113,7 @@ if os.environ.get('DATABASE_URL'):
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL'),
             conn_max_age=600,
-            engine='django.db.backends.postgresql'
+           engine='django.db.backends.postgresql_psycopg2'
         )
     }
 else:
