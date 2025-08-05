@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['onepythonshopapp.onrender.com']
 # ['.onrender.com', 'localhost', '127.0.0.1']
 
 # Defender Configuration (SQLite only)
