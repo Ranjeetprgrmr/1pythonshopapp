@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: python1shopapp
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn python1shopapp.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_PASSWORD
+        sync: false  # Mark as secret
+    disk:
+      name: media_storage
+      mountPath: /opt/render/project/src/media
+      sizeGB: 1  # Free tier limit

@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.http import HttpResponseForbidden
+
 from django.urls import include, path
 from python1shopapp import views
 from django.conf.urls.static import static
@@ -24,10 +24,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    # underscore
-    # path('admin/', lambda r: HttpResponseForbidden()),  # Fake admin
-    path('admin/', admin.site.urls),   # your real admin        
-    # path('axes/', include('axes.urls')),  # Axes stats (optional)      
+   
+    path('admin/', admin.site.urls), # your real nvadmin            
     path('', views.home, name='home'),
     path('store/', include('store.urls')),
     path('cart/', include('carts.urls')),
@@ -35,4 +33,8 @@ urlpatterns = [
     
     # ORDERS
     path('orders/', include('orders.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

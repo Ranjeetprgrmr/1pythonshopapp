@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import smtplib
 from decouple import config
+import dj_database_url
 from django.core.cache import cache
 
 import os
@@ -28,9 +29,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['.onrender.app','127.0.0.1']
+ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Defender Configuration (SQLite only)
@@ -84,7 +85,7 @@ ROOT_URLCONF = 'python1shopapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,11 +108,19 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# Database - Use this exact configuration
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600
+    )
 }
 
 
@@ -150,16 +159,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR /'static'
+STATIC_ROOT =  os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    
-     BASE_DIR / 'python1shopapp/static',
-]
+   [os.path.join(BASE_DIR, 'static')]
+   ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # media files configuration
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR /'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Default primary key field type
