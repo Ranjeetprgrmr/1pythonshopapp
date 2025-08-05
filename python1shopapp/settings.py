@@ -96,7 +96,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database Configuration
 DATABASES = {
     'default': dj_database_url.parse(
-        os.getenv('DATABASE_URL', 'postgresql://user:pass@localhost/dbname'),
+        os.getenv('DATABASE_URL', 'sqlite:///db.sqlite3'),
         conn_max_age=600,
     )
 }
