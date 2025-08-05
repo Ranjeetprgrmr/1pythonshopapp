@@ -93,28 +93,40 @@ WSGI_APPLICATION = 'python1shopapp.wsgi.application'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
+
+
+
 # Database Configuration
-# Default to SQLite for local development
-DEFAULT_DATABASE_URL = 'sqlite:///' + str(BASE_DIR / 'db.sqlite3')
-
-# Get database URL from environment or use default
-database_url = os.getenv('DATABASE_URL', DEFAULT_DATABASE_URL)
-
-# Validate database URL before parsing
-if not database_url:
-    database_url = DEFAULT_DATABASE_URL
-
-DATABASES = {
-    'default': dj_database_url.parse(
-        database_url,
-        conn_max_age=600,
-        engine='django.db.backends.postgresql' if 'postgres' in database_url else None
-    )
+# 1. First set a guaranteed valid default
+DEFAULT_DB = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': BASE_DIR / 'db.sqlite3',
 }
 
-# SSL for Render production
-if os.getenv('RENDER'):
-    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
+# 2. Get DATABASE_URL from environment
+db_url = os.getenv('DATABASE_URL')
+
+if db_url:  # If DATABASE_URL exists
+    try:
+        # Parse with explicit engine detection
+        if 'postgres' in db_url:
+            db_config = dj_database_url.parse(db_url, conn_max_age=600)
+            db_config['ENGINE'] = 'django.db.backends.postgresql'
+        elif 'sqlite' in db_url:
+            db_config = dj_database_url.parse(db_url)
+        else:
+            raise ValueError(f"Unsupported database URL: {db_url}")
+        
+        if os.getenv('RENDER'):  # Production SSL
+            db_config.setdefault('OPTIONS', {})['sslmode'] = 'require'
+        
+        DATABASES = {'default': db_config}
+    except Exception as e:
+        print(f"Error parsing DATABASE_URL, falling back to SQLite: {e}")
+        DATABASES = {'default': DEFAULT_DB}
+else:  # Fallback to SQLite
+    DATABASES = {'default': DEFAULT_DB}
+    
     
     
     
