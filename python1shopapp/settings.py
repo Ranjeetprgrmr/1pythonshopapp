@@ -63,6 +63,10 @@ MIDDLEWARE = [
     
 ]
 
+
+# Session engine (should be default)
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesBackend',
     'django.contrib.auth.backends.ModelBackend',
