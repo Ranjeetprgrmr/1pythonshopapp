@@ -22,3 +22,16 @@ EOF
 
 # 4. Collect static files
 python manage.py collectstatic --noinput
+
+#!/usr/bin/env bash
+set -o errexit
+
+# Install system dependencies for psycopg2
+sudo apt-get update
+sudo apt-get install -y libpq-dev python3-dev
+
+# Install Python packages
+pip install -r requirements.txt
+
+# Run migrations
+python manage.py migrate
