@@ -6,6 +6,8 @@ import dj_database_url
 from django.core.cache import cache
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +30,7 @@ DEFENDER_USE_REDIS = False  # Disable Redis completely
 DEFENDER_REDIS_URL = ""  # Empty string, not None
 DEFENDER_STORE_ACCESS_ATTEMPTS = True  # Use SQLite
 DEFENDER_LOCKOUT_TEMPLATE = None  # Default template
-DEFENDER_COOLOFF_TIME = 300  # 5 minutes lockout
+DEFENDER_COOLOFF_TIME = 50  # 5 minutes lockout
 
 
 # Application definition
@@ -107,29 +109,21 @@ DEFAULT_DB = {
     'NAME': BASE_DIR / 'db.sqlite3',
 }
 
-# 2. Get DATABASE_URL from environment
-db_url = os.getenv('DATABASE_URL')
-
-if db_url:  # If DATABASE_URL exists
-    try:
-        # Parse with explicit engine detection
-        if 'postgres' in db_url:
-            db_config = dj_database_url.parse(db_url, conn_max_age=600)
-            db_config['ENGINE'] = 'django.db.backends.postgresql'
-        elif 'sqlite' in db_url:
-            db_config = dj_database_url.parse(db_url)
-        else:
-            raise ValueError(f"Unsupported database URL: {db_url}")
-        
-        if os.getenv('RENDER'):  # Production SSL
-            db_config.setdefault('OPTIONS', {})['sslmode'] = 'require'
-        
-        DATABASES = {'default': db_config}
-    except Exception as e:
-        print(f"Error parsing DATABASE_URL, falling back to SQLite: {e}")
-        DATABASES = {'default': DEFAULT_DB}
-else:  # Fallback to SQLite
-    DATABASES = {'default': DEFAULT_DB}
+# Required PostgreSQL configuration (no fallback)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'yourdb',       # Create this DB first (see below)
+        'USER': 'postgres',     # Default superuser
+        'PASSWORD': 'password',  # Password you set during install
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+# Add this to fail early if DB is misconfigured
+if 'postgresql' not in DATABASES['default']['ENGINE']:
+    raise ValueError('Wrong database configured! Must use PostgreSQL!')
+  
     
     
     
