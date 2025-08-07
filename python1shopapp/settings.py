@@ -104,25 +104,12 @@ AUTH_USER_MODEL = 'accounts.Account'
 
 # Database Configuration
 # 1. First set a guaranteed valid default
-DEFAULT_DB = {
-    'ENGINE': 'django.db.backends.sqlite3',
-    'NAME': BASE_DIR / 'db.sqlite3',
-}
-
-# Required PostgreSQL configuration (no fallback)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yourdb',       # Create this DB first (see below)
-        'USER': 'postgres',     # Default superuser
-        'PASSWORD': 'password',  # Password you set during install
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# Add this to fail early if DB is misconfigured
-if 'postgresql' not in DATABASES['default']['ENGINE']:
-    raise ValueError('Wrong database configured! Must use PostgreSQL!')
   
     
     
