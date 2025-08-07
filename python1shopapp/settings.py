@@ -1,8 +1,9 @@
 
 from pathlib import Path
-import smtplib
+from django.urls import path
 from decouple import config
 import dj_database_url
+import smtplib
 from django.core.cache import cache
 
 import os
@@ -105,10 +106,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 # Database Configuration
 # 1. First set a guaranteed valid default
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
   
     
