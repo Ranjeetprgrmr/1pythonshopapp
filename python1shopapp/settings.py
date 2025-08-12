@@ -26,12 +26,12 @@ DEBUG = True
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 # ['.onrender.com', 'localhost', '127.0.0.1']
 
-# Defender Configuration (SQLite only)
-# DEFENDER_USE_REDIS = False  # Disable Redis completely
-# DEFENDER_REDIS_URL = ""  # Empty string, not None
-# DEFENDER_STORE_ACCESS_ATTEMPTS = True  # Use SQLite
-# DEFENDER_LOCKOUT_TEMPLATE = None  # Default template
-# DEFENDER_COOLOFF_TIME = 50  # 5 minutes lockout
+Defender Configuration (SQLite only)
+DEFENDER_USE_REDIS = False  # Disable Redis completely
+DEFENDER_REDIS_URL = ""  # Empty string, not None
+DEFENDER_STORE_ACCESS_ATTEMPTS = True  # Use SQLite
+DEFENDER_LOCKOUT_TEMPLATE = None  # Default template
+DEFENDER_COOLOFF_TIME = 50  # 5 minutes lockout
 
 
 # Application definition
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'orders',
-    # 'axes',
+    'axes',
 ]
 
 
@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'axes.middleware.AxesMiddleware', 
+    'axes.middleware.AxesMiddleware', 
      'django.contrib.auth.middleware.AuthenticationMiddleware',
     
 ]
@@ -70,10 +70,10 @@ MIDDLEWARE = [
 # Session engine (should be default)
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
-# AUTHENTICATION_BACKENDS = [
-#     'axes.backends.AxesBackend',
-#     'django.contrib.auth.backends.ModelBackend',
-# ]
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 
 ROOT_URLCONF = 'python1shopapp.urls'

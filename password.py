@@ -23,8 +23,10 @@
 # EMAIL_HOST_USER='9nadsg@gmail.com'
 # EMAIL_HOST_PASSWORD='wbcmkylqolpdahuy'
 # EMAIL_USE_TLS=True
+
+# The below environment variables are important in render for creating superuser
 # RENDER_SUPERUSER_EMAIL='guru_dev7@hotmail.com'
-# RENDER_SUPERUSER_USERNAME='ranjeet'
+# RENDER_SUPERUSER_USERNAME='ranjeet' 
 # RENDER_SUPERUSER_PASSWORD='password'
 # SECRET_KEY='django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh'
 
