@@ -16,11 +16,17 @@
 
 
 # 1. Required Environment Variables in Render Dashboard:
-#     DJANGO_SETTINGS_MODULE=python1shopapp.settings
-# PYTHONPATH=/opt/render/project/src
-# DISABLE_COLLECTSTATIC=0
-# SECRET_KEY=your-generated-secret-key-here
-# DATABASE_URL=auto-generated-by-render
+# DATABASE_URL=postgresql://db_1pythonshopapp_user:Yjuc3zkHFnXxzIIh71qIrA0vDBnarzZU@dpg-d2a8cpbe5dus73a3g1r0-a.singapore-postgres.render.com/db_1pythonshopapp
+# DEBUG=True
+# EMAIL_HOST='smtp.gmail.com'
+# EMAIL_PORT=587
+# EMAIL_HOST_USER='9nadsg@gmail.com'
+# EMAIL_HOST_PASSWORD='wbcmkylqolpdahuy'
+# EMAIL_USE_TLS=True
+# RENDER_SUPERUSER_EMAIL='guru_dev7@hotmail.com'
+# RENDER_SUPERUSER_USERNAME='ranjeet'
+# RENDER_SUPERUSER_PASSWORD='password'
+# SECRET_KEY='django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh'
 
 
 # 2. Build Command (same as your working CRM setup):
