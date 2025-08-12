@@ -1,4 +1,4 @@
-# AI-Powered Django App (ML/NLP Integration)
+
 
 
 # Email: guru_dev7@hotmail.com
