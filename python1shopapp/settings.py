@@ -26,7 +26,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 # ['.onrender.com', 'localhost', '127.0.0.1']
 
-Defender Configuration (SQLite only)
+#Defender Configuration (SQLite only)
 DEFENDER_USE_REDIS = False  # Disable Redis completely
 DEFENDER_REDIS_URL = ""  # Empty string, not None
 DEFENDER_STORE_ACCESS_ATTEMPTS = True  # Use SQLite
@@ -97,21 +97,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'python1shopapp.wsgi.application'
 
-
 AUTH_USER_MODEL = 'accounts.Account'
-
-
-
 
 # Database Configuration
 # 1. First set a guaranteed valid default
 DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL'))
 }
-  
-    
-    
-    
     
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
