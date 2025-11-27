@@ -106,33 +106,25 @@ import dj_database_url
 
 # Parse DATABASE_URL and force SSL
 # Database Configuration - USE THIS EXACT VERSION
-DATABASE_URL = config('DATABASE_URL', default='')
+# Database Configuration - PostgreSQL with SSL Fix
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db_1pythonshopapp',
+        'USER': 'db_1pythonshopapp_user',
+        'PASSWORD': 'Yjuc3zkHFnXxzIIh71qIrA0vDBnarzZU',
+        'HOST': 'dpg-d2a8cpbe5dus73a3g1r0-a.singapore-postgres.render.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+            'sslrootcert': '/etc/ssl/certs/ca-certificates.crt',
+        },
+        'CONN_MAX_AGE': 0,  # Disable connection pooling for now
+    }
+}
 
-if DATABASE_URL:
-    # Parse the database URL manually to ensure SSL is handled
-    DATABASES = {
-        'default': dj_database_url.parse(
-            DATABASE_URL,
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
-    }
-    # Double ensure SSL is enforced
-    DATABASES['default']['OPTIONS'] = {
-        'sslmode': 'require',
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+print("🔧 Using PostgreSQL with SSL enforcement")
 
-# Debug output
-print(f"Database HOST: {DATABASES['default'].get('HOST')}")
-print(f"Database OPTIONS: {DATABASES['default'].get('OPTIONS', {})}")
-    
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
