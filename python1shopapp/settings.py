@@ -108,22 +108,10 @@ import dj_database_url
 # Database Configuration - USE THIS EXACT VERSION
 # Database Configuration - PostgreSQL with SSL Fix
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_1pythonshopapp',
-        'USER': 'db_1pythonshopapp_user',
-        'PASSWORD': 'Yjuc3zkHFnXxzIIh71qIrA0vDBnarzZU',
-        'HOST': 'dpg-d2a8cpbe5dus73a3g1r0-a.singapore-postgres.render.com',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-            'sslrootcert': '/etc/ssl/certs/ca-certificates.crt',
-        },
-        'CONN_MAX_AGE': 0,  # Disable connection pooling for now
-    }
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
+DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
 
-print("🔧 Using PostgreSQL with SSL enforcement")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
