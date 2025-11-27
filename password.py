@@ -1,3 +1,9 @@
+# To activate virtual envrionment and runserver
+# Lenovo@DESKTOP-1Q9SICR MINGW64 /e/PYTHON/1PythonShoppAppDeployed-Rathan (main)
+# $ source env/Scripts/activate
+# (env)
+# Lenovo@DESKTOP-1Q9SICR MINGW64 /e/PYTHON/1PythonShoppAppDeployed-Rathan (main)
+# $ python manage.py runserver
 
 
 

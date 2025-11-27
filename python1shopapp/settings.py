@@ -104,6 +104,7 @@ AUTH_USER_MODEL = 'accounts.Account'
 DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL'))
 }
+DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
     
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
