@@ -105,9 +105,11 @@ AUTH_USER_MODEL = 'accounts.Account'
 import dj_database_url
 
 # Parse DATABASE_URL and force SSL
+# Database Configuration - USE THIS EXACT VERSION
 DATABASE_URL = config('DATABASE_URL', default='')
 
 if DATABASE_URL:
+    # Parse the database URL manually to ensure SSL is handled
     DATABASES = {
         'default': dj_database_url.parse(
             DATABASE_URL,
@@ -115,12 +117,11 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
-    # Force SSL for Render PostgreSQL
+    # Double ensure SSL is enforced
     DATABASES['default']['OPTIONS'] = {
         'sslmode': 'require',
     }
 else:
-    # Fallback for local development
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -128,18 +129,9 @@ else:
         }
     }
 
-# Debug: Check what database we're using
-print(f"Using database: {DATABASES['default']['ENGINE']}")
-print(f"Database host: {DATABASES['default'].get('HOST', 'localhost')}")
-
-# Temporary debug - check database connection
-try:
-    from django.db import connections
-    conn = connections['default']
-    conn.ensure_connection()
-    print("✅ Database connection successful!")
-except Exception as e:
-    print(f"❌ Database connection failed: {e}")
+# Debug output
+print(f"Database HOST: {DATABASES['default'].get('HOST')}")
+print(f"Database OPTIONS: {DATABASES['default'].get('OPTIONS', {})}")
     
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
