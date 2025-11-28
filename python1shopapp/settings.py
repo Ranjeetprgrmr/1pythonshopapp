@@ -107,11 +107,24 @@ import dj_database_url
 # Parse DATABASE_URL and force SSL
 # Database Configuration - USE THIS EXACT VERSION
 # Database Configuration - PostgreSQL with SSL Fix
-DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
-}
-DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
-
+# Method 2: Use config() with ssl_require parameter
+if 'RENDER' in os.environ:
+    # Render production environment
+    DATABASES = {
+        'default': dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True
+        )
+    }
+else:
+    # Local development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
