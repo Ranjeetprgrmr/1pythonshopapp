@@ -14,18 +14,25 @@ class AccountsConfig(AppConfig):
         email = os.environ.get('RENDER_SUPERUSER_EMAIL')
         password = os.environ.get('RENDER_SUPERUSER_PASSWORD')
 
-        # Only run if all env vars are present
+        # If any of them is missing, do nothing
         if not (username and email and password):
             return
+
+        # You can hardcode first/last name or later put them in env vars too
+        first_name = "Admin"
+        last_name = "User"
 
         User = get_user_model()
         try:
             if not User.objects.filter(username=username).exists():
+                # IMPORTANT: pass all required fields with correct names
                 User.objects.create_superuser(
-                    username=username,
+                    first_name=first_name,
+                    last_name=last_name,
                     email=email,
+                    username=username,
                     password=password,
                 )
         except (OperationalError, ProgrammingError):
-            # DB not ready during migrations/startup – ignore
+            # DB not ready yet – ignore
             pass
