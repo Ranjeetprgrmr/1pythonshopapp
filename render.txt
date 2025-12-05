@@ -1,0 +1,12 @@
+DATABASE_URL="\npostgresql://db_1pythonshopapp_n65e_user:YTNxQJS5hNuNE2u3rQ57bd7qIXxkDVHM@dpg-d4k7jv7pm1nc73ag5a60-a:5432/db_1pythonshopapp_n65e"
+DEBUG=True
+EMAIL_HOST=smtp.gmail.com
+EMAIL_HOST_PASSWORD=wbcmkylqolpdahuy
+EMAIL_HOST_USER=9nadsg@gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+PGSSLMODE=require
+RENDER_SUPERUSER_EMAIL=guru_dev7@hotmail.com
+RENDER_SUPERUSER_PASSWORD=password
+RENDER_SUPERUSER_USERNAME=ranjeet
+SECRET_KEY="django-insecure-hg2qtq#k_l-%9zcly5m^v1(#0y*my$l5)u0m=_t0_d6c*mxnmh"
